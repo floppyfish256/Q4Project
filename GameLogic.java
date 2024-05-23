@@ -13,7 +13,7 @@ public class GameLogic {
             if (isAtCenterTower(enemy)) {
                 tower.takeDamage(10); // Apply damage to the tower
                 // Remove or reset the enemy, as it has reached the tower
-                // enemies.remove(enemy); // Uncomment if you want to remove the enemy
+                enemies.remove(enemy);
             }
         }
         // Update enemy positions
