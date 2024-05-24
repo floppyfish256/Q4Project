@@ -34,7 +34,7 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
             e.printStackTrace();
         }
 
-        headerString = "CYBER FORTRESS TD";
+        headerString = "TOWER DEFENSE GAME";
         username = "";
 
         playButton = new JButton("PLAY");
