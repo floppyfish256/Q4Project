@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.net.*;
 import java.awt.event.*;
 
 public class ClientGameManager {
@@ -92,6 +91,10 @@ public class ClientGameManager {
             g2d.setStroke(new BasicStroke(3));
             g.setColor(Color.WHITE);
             g.drawLine(screenWidth / 2 - 50, screenHeight / 2 - 50, screenWidth / 2 + 50, screenHeight / 2 - 50);
+        }
+
+        if(inGame) {
+            
         }
     }
 
