@@ -1,25 +1,27 @@
 import java.awt.Graphics;
 
 public class ClientGameManager {
+    private boolean inGame;
+    private MyMap<String, Player> players;
 
     public ClientGameManager() {
     }
 
-    public void update() {
-    }
-
-    public void draw(Graphics g) {
-    }
-
-    public void connect() {
-    }
-
-    public void send(String message) {
-    }
-
-    public void receive(String message) {
+    public void initGame() {
     }
 
     public void startGame() {
+    }
+
+    public void updateGame() {
+    }
+
+    public void drawGame(Graphics g) {
+    }
+
+    public void handleInput(String input) {
+    }
+
+    public void handleMouseInput(int x, int y) {
     }
 }
