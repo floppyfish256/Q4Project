@@ -103,6 +103,9 @@ public class ClientGameManager {
             helpButton.setVisible(false);
             setHeaderString("WAITING FOR OTHER PLAYER");
         }
+        if(e.getSource() == helpButton) {
+            System.out.println("Help button clicked");
+        }
     }
 
     public void handleMouseInput(int x, int y) {

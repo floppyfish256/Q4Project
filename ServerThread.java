@@ -33,9 +33,6 @@ public class ServerThread extends Thread {
                         manager.broadcastMessage("Start");
                     }
                 }
-                else if(message != null && message.contains("/SetOtherPlayersPosition")) {
-                    manager.broadcastMessage(message);
-                }
             }
         } catch (EOFException e) {
             System.out.println("Client disconnected");

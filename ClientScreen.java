@@ -5,6 +5,7 @@ import java.net.*;
 import java.awt.event.*;
 
 public class ClientScreen extends JPanel implements KeyListener, ActionListener, MouseListener, MouseMotionListener {
+    
     private Socket socket;
     private PrintWriter outputStream;
     private BufferedReader inputStream;
@@ -58,9 +59,6 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                 ex.printStackTrace();
             }
             repaint();
-        }
-        if (e.getSource() == gameManager.getHelpButton()) {
-            System.out.println("Help");
         }
     }
 
