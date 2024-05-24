@@ -17,6 +17,11 @@ public class CenterTower {
     }
 
     public void drawMe(Graphics g) {
-
+        g.setColor(green);
+        g.fillRect(x - 50, y - 50, 100, 100);
+        g.setColor(gold);
+        g.fillRect(x - 40, y - 40, 80, 80);
+        g.setColor(darkGreen);
+        g.fillRect(x - 20, y - 20, 40, 40);
     }
 }
