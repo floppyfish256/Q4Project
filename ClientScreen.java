@@ -15,10 +15,6 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
     private int screenHeight;
     private String headerString;
     private String username;
-    private String[] currentMessage;
-    private boolean displayCharacterSelection;
-    private boolean inGame;
-    private boolean positionUpdated;
     private ClientGameManager gameManager;
     private TextFieldWithPrompt nameInputTextField;
 
@@ -40,10 +36,6 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
 
         headerString = "CYBER FORTRESS TD";
         username = "";
-
-        displayCharacterSelection = false;
-        inGame = false;
-        positionUpdated = false;
 
         playButton = new JButton("PLAY");
         playButton.setBounds(screenWidth / 2 - 50, screenHeight / 2 - 25, 100, 50);
@@ -94,23 +86,6 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
             g.setColor(Color.WHITE);
             g.drawLine(screenWidth / 2 - 50, screenHeight / 2 - 50, screenWidth / 2 + 50, screenHeight / 2 - 50);
         }
-
-        if(displayCharacterSelection && !inGame) {
-            gameManager.displayCharacterSelection(g, exoRegular, screenWidth);
-        }
-
-        if(inGame) {
-            gameManager.displayGame(g, exoRegular, screenWidth, screenHeight);
-        }
-
-        if(inGame && currentMessage != null) {
-            gameManager.displayOtherPlayers(g, currentMessage[1], Integer.parseInt(currentMessage[2]), Integer.parseInt(currentMessage[3]), currentMessage[4], Integer.parseInt(currentMessage[5]));
-        }
-
-        if(!positionUpdated && inGame) {
-            outputStream.println("/SetOtherPlayersPosition" + " " + username + " " + gameManager.relativeX() + " " + gameManager.relativeY() + " " + gameManager.selectedCharacter() + " " + gameManager.characterAngle());
-            outputStream.flush();
-        }
     }
 
     public void connect() {
@@ -125,13 +100,7 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                         String response = inputStream.readLine();
                         
                         if(response != null && response.equalsIgnoreCase("Start")) {
-                            headerString = "SELECT YOUR CHARACTER";
-                            displayCharacterSelection = true;
-                            repaint();
-                        }
-                        if(response != null && response.contains("/SetOtherPlayersPosition")) {
-                            currentMessage = response.split(" ");
-                            positionUpdated = false;
+                            headerString = "LOADING GAME";
                             repaint();
                         }
                     }
@@ -170,47 +139,16 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
         }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(displayCharacterSelection) {
-            int x = e.getX();
-            int y = e.getY();
-            inGame = gameManager.handleCharacterSelection(x, y, screenWidth, screenHeight);
-            if(inGame) {
-                displayCharacterSelection = false;
-                headerString = "";
-            }
-            repaint();
-        }
-    }
+    public void mouseClicked(MouseEvent e) {}
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
 
     public void mouseDragged(MouseEvent e) {}
-    public void mouseMoved(MouseEvent e) {
-        if(inGame) {
-            int x = e.getX();
-            int y = e.getY();
-            gameManager.handleCharacterAngle(x, y, screenWidth, screenHeight);
-            repaint();
-        }
-        else if(displayCharacterSelection) {
-            int x = e.getX();
-            int y = e.getY();
-            gameManager.handleCharacterHover(x, y, screenWidth);
-            repaint();
-        }
-    }
+    public void mouseMoved(MouseEvent e) {}
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(inGame) {
-            gameManager.handleCharacterMovement(e.getKeyCode(), screenWidth, screenHeight);
-            repaint();
-        }
-    }
+    public void keyPressed(KeyEvent e) {}
     public void keyTyped(KeyEvent e) {}
     public void keyReleased(KeyEvent e) {}
 }
