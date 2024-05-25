@@ -14,6 +14,7 @@ public class ClientGameManager {
     private JButton helpButton;
     private TextFieldWithPrompt nameInputTextField;
     private MyMap<String, Player> players;
+    private CenterTower centerTower;
     // private MyMap<String, Tower> towers;
     // private MyMap<String, Enemy> enemies;
     // private MyMap<String, Bullet> bullets;
@@ -23,6 +24,8 @@ public class ClientGameManager {
         inGame = false;
         screenWidth = 800;
         screenHeight = 600;
+        players = new MyMap<String, Player>();
+        centerTower = new CenterTower(screenWidth / 2, screenHeight / 2);
     }
 
     public void initGame(ClientScreen screen) {
@@ -94,7 +97,7 @@ public class ClientGameManager {
         }
 
         if(inGame) {
-            
+            centerTower.drawMe(g);
         }
     }
 
