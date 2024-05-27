@@ -14,7 +14,6 @@ public class ClientGameManager {
     private JButton helpButton;
     private TextFieldWithPrompt nameInputTextField;
     private MyMap<String, Player> players;
-    private CenterTower centerTower;
     // private MyMap<String, Tower> towers;
     // private MyMap<String, Enemy> enemies;
     // private MyMap<String, Bullet> bullets;
@@ -25,7 +24,6 @@ public class ClientGameManager {
         screenWidth = 800;
         screenHeight = 600;
         players = new MyMap<String, Player>();
-        centerTower = new CenterTower(screenWidth / 2, screenHeight / 2);
     }
 
     public void initGame(ClientScreen screen) {
@@ -72,6 +70,7 @@ public class ClientGameManager {
     }
 
     public void startGame() {
+        inGame = true;
     }
 
     public void updateGame() {
@@ -94,10 +93,6 @@ public class ClientGameManager {
             g2d.setStroke(new BasicStroke(3));
             g.setColor(Color.WHITE);
             g.drawLine(screenWidth / 2 - 50, screenHeight / 2 - 50, screenWidth / 2 + 50, screenHeight / 2 - 50);
-        }
-
-        if(inGame) {
-            centerTower.drawMe(g);
         }
     }
 
