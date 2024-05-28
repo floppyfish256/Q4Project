@@ -9,6 +9,7 @@ public class Manager {
         serverThreads = new MyArrayList<>();
         playersReady = 0;
         playersInGame = 0;
+        centerTower = new CenterTower(400, 300);
     }
 
     public void addServerThread(ServerThread serverThread) {
