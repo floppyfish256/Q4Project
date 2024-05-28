@@ -2,7 +2,7 @@ public class Manager {
     private MyArrayList<ServerThread> serverThreads;
     private int playersReady;
     private int playersInGame;
-    private CenterTower centerTower; // central tower all players must defend
+    private CenterTower centerTower; // central tower all players must defend, all players must lose if this tower is destroyed
 
     public Manager() {
         serverThreads = new MyArrayList<>();
