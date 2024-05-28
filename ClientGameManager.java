@@ -17,7 +17,6 @@ public class ClientGameManager {
     // private MyMap<String, Tower> towers;
     // private MyMap<String, Enemy> enemies;
     // private MyMap<String, Bullet> bullets;
-    // private MyMap<String, Explosion> explosions;
 
     public ClientGameManager() {
         inGame = false;
