@@ -37,8 +37,4 @@ public class Manager {
     public int getPlayersInGame() {
         return playersInGame;
     }
-
-    public CenterTower getCenterTower() {
-        return centerTower;
-    }
 }

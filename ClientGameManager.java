@@ -13,7 +13,6 @@ public class ClientGameManager {
     private JButton playButton;
     private JButton helpButton;
     private TextFieldWithPrompt nameInputTextField;
-    private CenterTower centerTower;
     // private MyMap<String, Tower> towers;
     // private MyMap<String, Enemy> enemies;
     // private MyMap<String, Bullet> bullets;
@@ -22,7 +21,6 @@ public class ClientGameManager {
         inGame = false;
         screenWidth = 800;
         screenHeight = 600;
-        centerTower = new CenterTower(400, 300);
     }
 
     public void initGame(ClientScreen screen) {
@@ -68,17 +66,11 @@ public class ClientGameManager {
         screen.setFocusable(true);
     }
 
-    public void startGame(ClientScreen screen) {
+    public void startGame() {
         inGame = true;
-        updateGame(screen);
     }
 
-    public void updateGame(ClientScreen screen) {
-        while(inGame) {
-            // update game state
-            screen.getCenterTower();
-            // draw game
-        }
+    public void updateGame() {
     }
 
     public void drawGame(Graphics g) {
@@ -128,9 +120,5 @@ public class ClientGameManager {
 
     public JButton getHelpButton() {
         return helpButton;
-    }
-
-    public void setCenterTowerHealth(int health) {
-        centerTower.setHealth(health);
     }
 }

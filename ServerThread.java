@@ -33,9 +33,6 @@ public class ServerThread extends Thread {
                         manager.broadcastMessage("Start");
                     }
                 }
-                if(message != null && message.equalsIgnoreCase("centerTower")) {
-                    manager.broadcastMessage("Health: " + manager.getCenterTower().getHealth());
-                }
             }
         } catch (EOFException e) {
             System.out.println("Client disconnected");
