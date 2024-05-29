@@ -4,14 +4,15 @@ import java.io.*;
 import java.awt.event.*;
 
 public class ClientGameManager {
-    private boolean inGame;
     private int screenWidth;
     private int screenHeight;
-    private Font exoRegular;
     private String headerString;
     private String username;
     private JButton playButton;
     private JButton helpButton;
+    private Font exoRegular;
+    private boolean inGame;
+    private CenterTower centerTower;
     private TextFieldWithPrompt nameInputTextField;
     // private MyMap<String, Tower> towers;
     // private MyMap<String, Enemy> enemies;
@@ -21,6 +22,7 @@ public class ClientGameManager {
         inGame = false;
         screenWidth = 800;
         screenHeight = 600;
+        centerTower = new CenterTower(400, 300);
     }
 
     public void initGame(ClientScreen screen) {
@@ -91,6 +93,10 @@ public class ClientGameManager {
             g2d.setStroke(new BasicStroke(3));
             g.setColor(Color.WHITE);
             g.drawLine(screenWidth / 2 - 50, screenHeight / 2 - 50, screenWidth / 2 + 50, screenHeight / 2 - 50);
+        }
+
+        if(inGame) {
+            centerTower.drawMe(g);
         }
     }
 
