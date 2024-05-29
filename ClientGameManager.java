@@ -76,6 +76,7 @@ public class ClientGameManager {
     }
 
     public void drawGame(Graphics g) {
+        System.out.println("Drawing game");
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, screenWidth, screenHeight);
 
