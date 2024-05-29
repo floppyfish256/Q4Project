@@ -34,8 +34,13 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                         String response = inputStream.readLine();
                         
                         if(response != null && response.equalsIgnoreCase("Start")) {
-                            gameManager.setHeaderString("GAME STARTED");
-                            gameManager.startGame();
+                            gameManager.setHeaderString("");
+                            gameManager.startGame(this);
+                            repaint();
+                        }
+                        if(response != null && response.startsWith("Health:")) {
+                            String[] parts = response.split(" ");
+                            gameManager.setCenterTowerHealth(Integer.parseInt(parts[1]));
                             repaint();
                         }
                     }
@@ -45,6 +50,15 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
             });
             serverListenerThread.start();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getCenterTower() {
+        try {
+            outputStream.println("centerTower");
+            outputStream.flush();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
