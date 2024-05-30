@@ -72,11 +72,17 @@ public class ClientGameManager {
         inGame = true;
     }
 
+    public void startGameLoop() {
+        while(inGame) {
+            updateGame();
+        }
+    }
+
     public void updateGame() {
+        
     }
 
     public void drawGame(Graphics g) {
-        System.out.println("Drawing game");
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, screenWidth, screenHeight);
 
