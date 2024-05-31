@@ -10,19 +10,17 @@ public class ClientGameManager {
     private JButton playButton;
     private JButton helpButton;
     private Font exoRegular;
-    private boolean inGame;
-    private CenterTower centerTower;
     private TextFieldWithPrompt nameInputTextField;
-    private MyMap<String, Enemy> enemies;
+    private CenterTower tower;
+    private boolean gameStarted;
     // private MyMap<String, Tower> towers;
     // private MyMap<String, Bullet> bullets;
 
     public ClientGameManager() {
-        inGame = false;
         screenWidth = 800;
         screenHeight = 600;
-        centerTower = new CenterTower(400, 300);
-        enemies = new MyMap<>();
+        tower = new CenterTower(screenWidth / 2, screenHeight / 2);
+        gameStarted = false;
     }
 
     public void initGame(ClientScreen screen) {
@@ -67,13 +65,6 @@ public class ClientGameManager {
         screen.setFocusable(true);
     }
 
-    public void updateGame() {
-        System.out.println("Game loop running");
-        for(Enemy enemy : enemies.getValues()) {
-            enemy.moveTowardsCenter();
-        }
-    }
-
     public void drawGame(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, screenWidth, screenHeight);
@@ -93,9 +84,13 @@ public class ClientGameManager {
             g.drawLine(screenWidth / 2 - 50, screenHeight / 2 - 50, screenWidth / 2 + 50, screenHeight / 2 - 50);
         }
 
-        if(inGame) {
-            centerTower.drawMe(g);
+        if(gameStarted) {
+            tower.drawMe(g);
         }
+    }
+
+    public void startGame() {
+        gameStarted = true;
     }
 
     public void handleInput(ActionEvent e) {

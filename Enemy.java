@@ -1,10 +1,12 @@
 import java.awt.*;
 
 public class Enemy {
+    private String enemyType;
     private int x;
     private int y;
 
-    public Enemy(int x, int y) {
+    public Enemy(String enemyType, int x, int y) {
+        this.enemyType = enemyType;
         this.x = x;
         this.y = y;
     }
@@ -25,5 +27,9 @@ public class Enemy {
         } else if(y > 300) {
             y--;
         }
+    }
+
+    public String getEnemyType() {
+        return enemyType;
     }
 }
