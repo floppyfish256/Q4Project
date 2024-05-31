@@ -11,7 +11,6 @@ public class GameLogic {
 
     public void update() {
         // Update tower and enemies
-        System.out.println("Game loop running");
     }
 
     public void handlePlayerAction(String action) {

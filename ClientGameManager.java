@@ -13,14 +13,14 @@ public class ClientGameManager {
     private TextFieldWithPrompt nameInputTextField;
     private CenterTower tower;
     private boolean gameStarted;
-    // private MyMap<String, Tower> towers;
-    // private MyMap<String, Bullet> bullets;
+    private MyArrayList<Enemy> enemies;
 
     public ClientGameManager() {
         screenWidth = 800;
         screenHeight = 600;
         tower = new CenterTower(screenWidth / 2, screenHeight / 2);
         gameStarted = false;
+        enemies = new MyArrayList<>();
     }
 
     public void initGame(ClientScreen screen) {
@@ -86,6 +86,9 @@ public class ClientGameManager {
 
         if(gameStarted) {
             tower.drawMe(g);
+            for(Enemy enemy : enemies) {
+                enemy.drawMe(g);
+            }
         }
     }
 
@@ -118,5 +121,9 @@ public class ClientGameManager {
 
     public JButton getHelpButton() {
         return helpButton;
+    }
+
+    public void spawnEnemy(String enemyType, int x, int y) {
+        enemies.add(new Enemy(enemyType, x, y));
     }
 }

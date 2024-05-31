@@ -43,6 +43,8 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                             String enemyType = tokens[1];
                             int x = Integer.parseInt(tokens[2]);
                             int y = Integer.parseInt(tokens[3]);
+                            System.out.println("Spawning enemy at " + x + ", " + y);
+                            gameManager.spawnEnemy(enemyType, x, y);
                             repaint();
                         }
                     }

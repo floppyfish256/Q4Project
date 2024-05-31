@@ -9,10 +9,13 @@ public class EnemySpawnTask implements Runnable {
 
     @Override
     public void run() {
-        // Logic for enemy spawning
-        int x = (int) (Math.random() * 800 - 400);
-        int y = (int) (Math.sqrt(400 * 400 - x * x) * (Math.random() < 0.5 ? -1 : 1));
-        System.out.println("Spawning enemy at: " + x + ", " + y);
+        int centerX = 400;
+        int centerY = 300;
+        int radius = 400;
+        
+        double angle = Math.random() * 2 * Math.PI;
+        int x = (int) (centerX + radius * Math.cos(angle));
+        int y = (int) (centerY + radius * Math.sin(angle));
         String spawnMessage = "spawn:enemy_type:" + x + ":" + y;
         manager.broadcastMessage(spawnMessage);
     }
