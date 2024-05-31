@@ -14,8 +14,8 @@ public class ClientGameManager {
     private boolean inGame;
     private CenterTower centerTower;
     private TextFieldWithPrompt nameInputTextField;
+    private MyMap<String, Enemy> enemies;
     // private MyMap<String, Tower> towers;
-    // private MyMap<String, Enemy> enemies;
     // private MyMap<String, Bullet> bullets;
 
     public ClientGameManager() {
@@ -79,7 +79,7 @@ public class ClientGameManager {
     }
 
     public void updateGame() {
-        
+        System.out.println("Game loop running");
     }
 
     public void drawGame(Graphics g) {
