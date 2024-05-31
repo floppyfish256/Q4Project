@@ -7,7 +7,6 @@ public class ClientGameManager {
     private int screenWidth;
     private int screenHeight;
     private String headerString;
-    private String username;
     private JButton playButton;
     private JButton helpButton;
     private Font exoRegular;
@@ -23,6 +22,7 @@ public class ClientGameManager {
         screenWidth = 800;
         screenHeight = 600;
         centerTower = new CenterTower(400, 300);
+        enemies = new MyMap<>();
     }
 
     public void initGame(ClientScreen screen) {
@@ -37,7 +37,6 @@ public class ClientGameManager {
         }
 
         headerString = "TOWER DEFENSE GAME";
-        username = "";
 
         playButton = new JButton("PLAY");
         playButton.setBounds(screenWidth / 2 - 50, screenHeight / 2 - 25, 100, 50);
@@ -68,18 +67,11 @@ public class ClientGameManager {
         screen.setFocusable(true);
     }
 
-    public void startGame() {
-        inGame = true;
-    }
-
-    public void startGameLoop() {
-        while(inGame) {
-            updateGame();
-        }
-    }
-
     public void updateGame() {
         System.out.println("Game loop running");
+        for(Enemy enemy : enemies.getValues()) {
+            enemy.moveTowardsCenter();
+        }
     }
 
     public void drawGame(Graphics g) {
@@ -108,7 +100,6 @@ public class ClientGameManager {
 
     public void handleInput(ActionEvent e) {
         if(e.getSource() == playButton) {
-            username = nameInputTextField.getText();
             nameInputTextField.setVisible(false);
             playButton.setVisible(false);
             helpButton.setVisible(false);

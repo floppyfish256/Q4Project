@@ -35,9 +35,7 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                         
                         if(response != null && response.equalsIgnoreCase("Start")) {
                             gameManager.setHeaderString("");
-                            gameManager.startGame();
                             repaint();
-                            gameManager.startGameLoop();
                         }
                     }
                 } catch (IOException ex) {
