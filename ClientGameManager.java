@@ -124,6 +124,8 @@ public class ClientGameManager {
     }
 
     public void spawnEnemy(String enemyType, int x, int y) {
-        enemies.add(new Enemy(enemyType, x, y));
+        if(gameStarted) {
+            enemies.add(new Enemy(enemyType, x, y));
+        }
     }
 }
