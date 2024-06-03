@@ -32,4 +32,12 @@ public class Enemy {
     public String getEnemyType() {
         return enemyType;
     }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
 }
