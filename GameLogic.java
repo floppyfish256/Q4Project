@@ -16,7 +16,7 @@ public class GameLogic {
                 // enemies.remove(enemy); // Uncomment if you want to remove the enemy
             }
         }
-        // Update the tower's health bar
+        // Update enemy positions
 
     }
 
