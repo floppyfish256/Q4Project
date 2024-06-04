@@ -16,7 +16,8 @@ public class GameLogic {
                 // enemies.remove(enemy); // Uncomment if you want to remove the enemy
             }
         }
-        // Redraw or update the game state if necessary
+        // Update the tower's health bar
+
     }
 
     public void handlePlayerAction(String action) {
