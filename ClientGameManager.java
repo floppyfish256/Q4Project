@@ -14,6 +14,8 @@ public class ClientGameManager {
     private CenterTower tower;
     private boolean gameStarted;
     private MyArrayList<Enemy> enemies;
+    private MyArrayList<Building> buildings;
+    private int money;
 
     public ClientGameManager() {
         screenWidth = 800;
@@ -21,6 +23,8 @@ public class ClientGameManager {
         tower = new CenterTower(screenWidth / 2, screenHeight / 2);
         gameStarted = false;
         enemies = new MyArrayList<>();
+        buildings = new MyArrayList<>();
+        money = 100;
     }
 
     public void initGame(ClientScreen screen) {
@@ -34,7 +38,7 @@ public class ClientGameManager {
             e.printStackTrace();
         }
 
-        headerString = "TOWER DEFENSE GAME";
+        headerString = "THE HORDE";
 
         playButton = new JButton("PLAY");
         playButton.setBounds(screenWidth / 2 - 50, screenHeight / 2 - 25, 100, 50);
@@ -89,6 +93,17 @@ public class ClientGameManager {
             for(Enemy enemy : enemies) {
                 enemy.drawMe(g);
             }
+            for(Building building : buildings) {
+                building.drawMe(g);
+                for(Enemy enemy : enemies) {
+                    if(building.shoot(enemy)) {
+                        money += 50;
+                        break;
+                    }
+                }
+            }
+            g.setColor(Color.WHITE);
+            g.drawString("Money: " + money, 10, 30);
         }
     }
 
@@ -109,6 +124,10 @@ public class ClientGameManager {
     }
 
     public void handleMouseInput(int x, int y) {
+        if(gameStarted && money >= 50) {
+            buildings.add(new Building(x, y));
+            money -= 50;
+        }
     }
 
     public void setHeaderString(String headerString) {
@@ -127,5 +146,23 @@ public class ClientGameManager {
         if(gameStarted) {
             enemies.add(new Enemy(enemyType, x, y));
         }
+    }
+
+    public int money() {
+        return money;
+    }
+
+    public void build(int x, int y) {
+        if(gameStarted) {
+            buildings.add(new Building(x, y));
+        }
+    }
+
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
+    public MyArrayList<Building> getBuildings() {
+        return buildings;
     }
 }

@@ -18,7 +18,7 @@ public class Server {
         
         // Start the game loop
         scheduler.scheduleAtFixedRate(new GameLoopTask(gameLogic), 0, 16, TimeUnit.MILLISECONDS); // ~60 FPS
-        scheduler.scheduleAtFixedRate(new EnemySpawnTask(manager), 0, 5, TimeUnit.SECONDS); // Spawns every 5 seconds
+        scheduler.scheduleAtFixedRate(new EnemySpawnTask(manager), 0, 1, TimeUnit.SECONDS); // Spawns every second
     }
 
     public void start() {

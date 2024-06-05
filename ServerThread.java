@@ -33,6 +33,12 @@ public class ServerThread extends Thread {
                         manager.broadcastMessage("Start");
                     }
                 }
+                if(message != null && message.startsWith("build:")) {
+                    manager.broadcastMessage(message);
+                }
+                if(message != null && message.startsWith("delete:")) {
+                    manager.broadcastMessage(message);
+                }
             }
         } catch (EOFException e) {
             System.out.println("Client disconnected");

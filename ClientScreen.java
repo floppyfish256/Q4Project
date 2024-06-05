@@ -43,9 +43,14 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                             String enemyType = tokens[1];
                             int x = Integer.parseInt(tokens[2]);
                             int y = Integer.parseInt(tokens[3]);
-                            System.out.println("Spawning enemy at " + x + ", " + y);
                             gameManager.spawnEnemy(enemyType, x, y);
                             repaint();
+                        }
+                        if(response != null && response.startsWith("build:")) {
+                            String[] tokens = response.split(":");
+                            int x = Integer.parseInt(tokens[1]);
+                            int y = Integer.parseInt(tokens[2]);
+                            gameManager.build(x, y);
                         }
                     }
                 } catch (IOException ex) {
@@ -54,6 +59,15 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
             });
             serverListenerThread.start();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendBuildMessage(int x, int y) {
+        try {
+            outputStream.println("build:" + x + ":" + y);
+            outputStream.flush();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -72,7 +86,12 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
         }
     }
 
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+        if(gameManager.money() >= 50) {
+            sendBuildMessage(e.getX(), e.getY());
+        }
+        gameManager.handleMouseInput(e.getX(), e.getY());
+    }
     public void mousePressed(MouseEvent e) {}
     public void mouseReleased(MouseEvent e) {}
     public void mouseEntered(MouseEvent e) {}
