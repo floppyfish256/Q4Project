@@ -1,7 +1,8 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.Serializable;
 
-public class Building {
+public class Building implements Serializable {
     // Buildings player can place on the map, shoots at enemies
     private int x;
     private int y;

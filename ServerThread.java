@@ -39,6 +39,12 @@ public class ServerThread extends Thread {
                 if(message != null && message.startsWith("delete:")) {
                     manager.broadcastMessage(message);
                 }
+                if(message != null && message.startsWith("removeBuilding:")) {
+                    manager.broadcastMessage(message);
+                }
+                if(message != null && message.startsWith("restart")) {
+                    manager.broadcastMessage(message);
+                }
             }
         } catch (EOFException e) {
             System.out.println("Client disconnected");

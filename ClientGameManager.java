@@ -1,3 +1,6 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -9,6 +12,7 @@ public class ClientGameManager {
     private String headerString;
     private JButton playButton;
     private JButton helpButton;
+    private JButton restartButton;
     private Font exoRegular;
     private TextFieldWithPrompt nameInputTextField;
     private CenterTower tower;
@@ -16,6 +20,7 @@ public class ClientGameManager {
     private MyArrayList<Enemy> enemies;
     private MyArrayList<Building> buildings;
     private int money;
+    private MyMap<String, String> sounds;
 
     public ClientGameManager() {
         screenWidth = 800;
@@ -25,6 +30,9 @@ public class ClientGameManager {
         enemies = new MyArrayList<>();
         buildings = new MyArrayList<>();
         money = 100;
+        sounds = new MyMap<String, String>();
+        sounds.put("capture", "capture.wav");
+        sounds.put("game_over", "game_over.wav");
     }
 
     public void initGame(ClientScreen screen) {
@@ -50,6 +58,11 @@ public class ClientGameManager {
         helpButton.setFont(exoRegular);
         helpButton.addActionListener(screen);
 
+        restartButton = new JButton("RESTART");
+        restartButton.setBounds(screenWidth / 2 - 75, screenHeight / 2 - 25, 150, 50);
+        restartButton.setFont(exoRegular);
+        restartButton.addActionListener(screen);
+
         nameInputTextField = new TextFieldWithPrompt();
         nameInputTextField.setBounds(screenWidth / 2 - 50, screenHeight / 2 - 95, 100, 50);
         nameInputTextField.setFont(exoRegular);
@@ -62,6 +75,8 @@ public class ClientGameManager {
         screen.add(nameInputTextField);
         screen.add(playButton);
         screen.add(helpButton);
+        screen.add(restartButton);
+        restartButton.setVisible(false);
 
         screen.addMouseListener(screen);
         screen.addMouseMotionListener(screen);
@@ -70,8 +85,18 @@ public class ClientGameManager {
     }
 
     public void drawGame(Graphics g) {
+        
+        // Background
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, screenWidth, screenHeight);
+        // gray lines every 50 pixels
+        g.setColor(Color.GRAY);
+        for(int i = 0; i < screenWidth; i += 50) {
+            g.drawLine(i, 0, i, screenHeight);
+        }
+        for(int i = 0; i < screenHeight; i += 50) {
+            g.drawLine(0, i, screenWidth, i);
+        }
 
         g.setColor(Color.WHITE);
         g.setFont(exoRegular);
@@ -97,9 +122,18 @@ public class ClientGameManager {
                 building.drawMe(g);
                 for(Enemy enemy : enemies) {
                     if(building.shoot(enemy)) {
+                        playSound(sounds.get("capture"));
                         money += 50;
                         break;
                     }
+                }
+            }
+            for(Enemy enemy : enemies) {
+                if(enemy.getX() > 400 - 50 && enemy.getX() < 400 + 50 && enemy.getY() > 300 - 50 && enemy.getY() < 300 + 50) {
+                    playSound(sounds.get("game_over"));
+                    setHeaderString("GAME OVER");
+                    gameStarted = false;
+                    restartButton.setVisible(true);
                 }
             }
             g.setColor(Color.WHITE);
@@ -119,7 +153,15 @@ public class ClientGameManager {
             setHeaderString("WAITING FOR OTHER PLAYER");
         }
         if(e.getSource() == helpButton) {
-            System.out.println("Help button clicked");
+            setHeaderString("Click to place towers, defend the center");
+        }
+        if(e.getSource() == restartButton) {
+            restartButton.setVisible(false);
+            setHeaderString("");
+            gameStarted = true;
+            enemies.clear();
+            buildings.clear();
+            money = 100;
         }
     }
 
@@ -140,6 +182,10 @@ public class ClientGameManager {
 
     public JButton getHelpButton() {
         return helpButton;
+    }
+
+    public JButton getRestartButton() {
+        return restartButton;
     }
 
     public void spawnEnemy(String enemyType, int x, int y) {
@@ -164,5 +210,34 @@ public class ClientGameManager {
 
     public MyArrayList<Building> getBuildings() {
         return buildings;
+    }
+
+    public void removeBuilding(Building building) {
+        buildings.remove(building);
+    }
+
+    public static synchronized void playSound(final String url) {
+        new Thread(new Runnable() {
+            public void run() {
+            try {
+                Clip clip = AudioSystem.getClip();
+                AudioInputStream inputStream = AudioSystem.getAudioInputStream(
+                ClientGameManager.class.getResourceAsStream("sounds/" + url));
+                clip.open(inputStream);
+                clip.start(); 
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+            }
+        }).start();
+    }
+
+    public void restartGame() {
+        gameStarted = true;
+        enemies.clear();
+        buildings.clear();
+        money = 100;
+        restartButton.setVisible(false);
+        headerString = "";
     }
 }

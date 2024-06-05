@@ -59,6 +59,10 @@ public class MyArrayList<E> implements Iterable<E> {
         return null;
     }
 
+    public void clear() {
+        size = 0;
+    }
+
     @Override
     public Iterator<E> iterator() {
         return new MyArrayListIterator<>(this);

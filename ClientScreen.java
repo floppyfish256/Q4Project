@@ -20,6 +20,12 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         gameManager.drawGame(g);
+        for(Building building : gameManager.getBuildings()) {
+            if(building.time() > 8) {
+                gameManager.removeBuilding(building);
+                sendRemoveBuildingMessage(building);
+            }
+        }
     }
 
     public void connect() {
@@ -52,6 +58,21 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                             int y = Integer.parseInt(tokens[2]);
                             gameManager.build(x, y);
                         }
+                        if(response != null && response.startsWith("removeBuilding:")) {
+                            String[] tokens = response.split(":");
+                            int x = Integer.parseInt(tokens[1]);
+                            int y = Integer.parseInt(tokens[2]);
+                            for(Building building : gameManager.getBuildings()) {
+                                if(building.getX() == x && building.getY() == y) {
+                                    gameManager.removeBuilding(building);
+                                    break;
+                                }
+                            }
+                        }
+                        if(response != null && response.startsWith("restart")) {
+                            gameManager.restartGame();
+                            repaint();
+                        }
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -72,12 +93,30 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
         }
     }
 
+    public void sendRemoveBuildingMessage(Building building) {
+        try {
+            outputStream.println("removeBuilding:" + building.getX() + ":" + building.getY());
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         gameManager.handleInput(e);
         if (e.getSource() == gameManager.getPlayButton()) {
             try {
                 outputStream.println("play");
+                outputStream.flush();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            repaint();
+        }
+        if (e.getSource() == gameManager.getRestartButton()) {
+            try {
+                outputStream.println("restart");
                 outputStream.flush();
             } catch (Exception ex) {
                 ex.printStackTrace();
