@@ -31,6 +31,7 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
     public void connect() {
         try {
             socket = new Socket("localhost", 2048);
+            //socket = new Socket("10.210.126.189", 2048);
             outputStream = new PrintWriter(socket.getOutputStream(), true);
             inputStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
