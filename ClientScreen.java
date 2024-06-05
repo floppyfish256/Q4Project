@@ -26,6 +26,12 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                 sendRemoveBuildingMessage(building);
             }
         }
+        for(Enemy enemy : gameManager.getEnemies()) {
+            if(!enemy.isAlive()) {
+                gameManager.removeEnemy(enemy);
+                sendRemoveEnemyMessage(enemy);
+            }
+        }
     }
 
     public void connect() {
@@ -70,6 +76,17 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                                 }
                             }
                         }
+                        if(response != null && response.startsWith("removeEnemy:")) {
+                            String[] tokens = response.split(":");
+                            int x = Integer.parseInt(tokens[1]);
+                            int y = Integer.parseInt(tokens[2]);
+                            for(Enemy enemy : gameManager.getEnemies()) {
+                                if(enemy.getX() == x && enemy.getY() == y) {
+                                    gameManager.removeEnemy(enemy);
+                                    break;
+                                }
+                            }
+                        }
                         if(response != null && response.startsWith("restart")) {
                             gameManager.restartGame();
                             repaint();
@@ -97,6 +114,15 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
     public void sendRemoveBuildingMessage(Building building) {
         try {
             outputStream.println("removeBuilding:" + building.getX() + ":" + building.getY());
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void sendRemoveEnemyMessage(Enemy enemy) {
+        try {
+            outputStream.println("removeEnemy:" + enemy.getX() + ":" + enemy.getY());
             outputStream.flush();
         } catch (Exception e) {
             e.printStackTrace();

@@ -64,4 +64,8 @@ public class Enemy implements Serializable {
     public void disappear() {
         alive = false;
     }
+
+    public boolean isAlive() {
+        return alive;
+    }
 }

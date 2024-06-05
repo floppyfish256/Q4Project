@@ -240,4 +240,12 @@ public class ClientGameManager {
         restartButton.setVisible(false);
         headerString = "";
     }
+
+    public MyArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public void removeEnemy(Enemy enemy) {
+        enemies.remove(enemy);
+    }
 }
