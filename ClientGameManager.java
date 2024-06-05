@@ -128,4 +128,14 @@ public class ClientGameManager {
             enemies.add(new Enemy(enemyType, x, y));
         }
     }
+
+    public void updateEnemyPositions(int x, int y) {
+        if(gameStarted) {
+            for(Enemy enemy : enemies) {
+                if(enemy.getX() == x && enemy.getY() == y) {
+                    enemy.moveTowardsCenter();
+                }
+            }
+        }
+    }
 }

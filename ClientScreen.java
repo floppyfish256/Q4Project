@@ -47,6 +47,14 @@ public class ClientScreen extends JPanel implements KeyListener, ActionListener,
                             gameManager.spawnEnemy(enemyType, x, y);
                             repaint();
                         }
+                        // update positions of enemies
+                        if(response != null && response.startsWith("update:")) {
+                            String[] tokens = response.split(":");
+                            int x = Integer.parseInt(tokens[1]);
+                            int y = Integer.parseInt(tokens[2]);
+                            gameManager.updateEnemyPositions(x, y);
+                            repaint();
+                        }
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();

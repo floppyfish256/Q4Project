@@ -7,6 +7,10 @@ public class GameLoopTask implements Runnable {
         this.gameLogic = gameLogic;
     }
 
+    public GameLogic getGameLogic() {
+        return gameLogic;
+    }
+
     @Override
     public void run() {
         gameLogic.update();

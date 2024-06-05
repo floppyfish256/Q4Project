@@ -16,8 +16,6 @@ public class GameLogic {
                 enemies.remove(enemy);
             }
         }
-        // Update enemy positions
-
     }
 
     public void handlePlayerAction(String action) {
@@ -29,5 +27,9 @@ public class GameLogic {
         int centerY = 300;
         int radius = 50; // Adjust this value based on the tower's size
         return Math.sqrt(Math.pow(enemy.getX() - centerX, 2) + Math.pow(enemy.getY() - centerY, 2)) <= radius;
+    }
+
+    public MyArrayList<Enemy> getEnemies() {
+        return enemies;
     }
 }
