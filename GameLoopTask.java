@@ -1,5 +1,3 @@
-import java.util.TimerTask;
-
 public class GameLoopTask implements Runnable {
     private GameLogic gameLogic;
 

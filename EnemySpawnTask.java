@@ -1,5 +1,3 @@
-import java.util.TimerTask;
-
 public class EnemySpawnTask implements Runnable {
     private Manager manager;
 
