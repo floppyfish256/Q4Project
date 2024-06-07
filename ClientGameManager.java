@@ -6,6 +6,7 @@ import java.awt.*;
 import java.io.*;
 import java.awt.event.*;
 
+// CLient game manager
 public class ClientGameManager {
     private int screenWidth;
     private int screenHeight;
